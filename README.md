@@ -36,7 +36,8 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - markAssignmentComplete
 - markAssignmentIncomplete
 - sortAllAssignmentsByDate
-- sortCourseAssignmentsByDate
+- viewCourseAssignments
+- sortCourseAssignmentsByType 
 
 ## Entities
 
@@ -61,4 +62,30 @@ These attributes allow for accessing assignments for a specific class, sorting a
 
 ### object
 - here
+
+# REST API Design
+
+## Endpoints
+
+| Description | URL Fragment | HTTP Method | Path Parameters | Representation |
+| ----------- | ------------ | ----------- | --------------- | -------------- |
+| create account | h | POST |  |  |
+| modify account | h | PUT |  |  | 
+| delete account | h | DELETE |  |  |
+| log in | h | PUT |  |  | 
+| log out | h | PUT |  |  |
+| create course | h | POST |  |  | 
+| delete course | h | DELETE |  |  |
+| create assignment | h | POST |  |  | 
+| delete assignment | h | DELETE |  |  |
+| modify assignment | h | PUT |  |  | 
+| mark assignment complete | h | PUT |  |  |
+| mark assignment incomplete | h | PUT |  |  | 
+| sort all assignments | h | GET |  |  |
+| view course assignments | h | GET |  |  |
+| sort course assignments by type | h | GET |  |  | 
+
+## Representations
+
+Here
 
