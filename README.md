@@ -86,8 +86,8 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | create assignment | `/courses/{courseId}/` | POST | `courseId` | Create Assignment | 
 | delete assignment | `courses/{courseId}/{asgmtId}` | DELETE | `courseId`, `asgmtId` |  |
 | modify assignment | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
-| mark assignment complete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment |
-| mark assignment incomplete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
+| mark assignment complete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment ?? |
+| mark assignment incomplete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment ?? | 
 | view all assignments | `/` | GET |  | Get All Assignments |
 | view courses | `/courses` | GET |  | Get Courses |
 | view course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
@@ -96,5 +96,101 @@ These attributes allow for accessing assignments for a specific class, sorting a
 
 ## Representations
 
-Here
+### Create Account
+
+```
+{
+    "username": "username",
+    "name": "First Name",
+    "password": "pswd"
+}
+```
+
+### Modify Account
+
+```
+{
+    here
+}
+```
+
+### Account Log In
+
+```
+{
+    here
+}
+```
+
+### Create Course
+
+```
+{
+    here
+}
+```
+
+### Modify Course
+
+```
+{
+    here
+}
+```
+
+### Create Assignment
+
+```
+{
+    here
+}
+```
+
+### Modify Assignment
+
+```
+{
+    here
+}
+```
+
+### Get All Assignments
+
+```
+{
+    here
+}
+```
+
+### Get Courses
+
+```
+{
+    here
+}
+```
+
+### Get Course Assignments
+
+```
+{
+    here
+}
+```
+
+### Get Course Assignments All
+
+```
+{
+    here
+}
+```
+
+### Get Course Assignments By Type
+
+```
+{
+    here
+}
+```
 
