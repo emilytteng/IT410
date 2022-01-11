@@ -30,14 +30,16 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - logOutUser
 - createCourse
 - deleteCourse
+- modifyCourse
 - createAssignment
 - deleteAssignment
 - modifyAssignment
 - markAssignmentComplete
 - markAssignmentIncomplete
-- sortAllAssignmentsByDate
+- viewAllAssignmentsByDate
 - viewCourseAssignments
-- sortCourseAssignmentsByType 
+- viewCompleteAndIncompleteCourseAssignments
+- sortCourseAssignmentsByType (or just viewByType??)
 
 ## Entities
 
@@ -55,8 +57,12 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - assignment id
 - name
 - due date
-- type
+- assignment type
 - completed (`true` or `false`)
+
+### Assignment Type ???
+- type id
+- name
 
 ## Value Objects
 
@@ -69,21 +75,24 @@ These attributes allow for accessing assignments for a specific class, sorting a
 
 | Description | URL Fragment | HTTP Method | Path Parameters | Representation |
 | ----------- | ------------ | ----------- | --------------- | -------------- |
-| create account | h | POST |  |  |
-| modify account | h | PUT |  |  | 
-| delete account | h | DELETE |  |  |
-| log in | h | PUT |  |  | 
-| log out | h | PUT |  |  |
-| create course | h | POST |  |  | 
-| delete course | h | DELETE |  |  |
-| create assignment | h | POST |  |  | 
-| delete assignment | h | DELETE |  |  |
-| modify assignment | h | PUT |  |  | 
-| mark assignment complete | h | PUT |  |  |
-| mark assignment incomplete | h | PUT |  |  | 
-| sort all assignments | h | GET |  |  |
-| view course assignments | h | GET |  |  |
-| sort course assignments by type | h | GET |  |  | 
+| create account | `/accounts` | POST |  | Create Account |
+| modify account | `/accounts/{userId}` | PUT | `userId` | Modify Account | 
+| delete account | `/accounts/{userId}` | DELETE | `userId` |  |
+| log in | `/accounts/{userId}/login` | PUT | `userId` | Account Log In |
+| log out | `/accounts/{userId}/logout` | PUT | `userId` |  |
+| create course | `/courses` | POST |  | Create Course | 
+| delete course | `/courses/{courseId}` | DELETE | `courseId` |  |
+| modify course | `/courses/{courseId}` | PUT | `courseId` | Modify Course |
+| create assignment | `/courses/{courseId}/` | POST | `courseId` | Create Assignment | 
+| delete assignment | `courses/{courseId}/{asgmtId}` | DELETE | `courseId`, `asgmtId` |  |
+| modify assignment | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
+| mark assignment complete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment |
+| mark assignment incomplete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
+| view all assignments | `/` | GET |  | Get All Assignments |
+| view courses | `/courses` | GET |  | Get Courses |
+| view course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
+| view complete and incomplete course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments All |
+| sort course assignments by type | `/courses/{courseId}/type` ??? | GET | `courseId`, `asgmtId` | Get Course Assignments By Type | 
 
 ## Representations
 
