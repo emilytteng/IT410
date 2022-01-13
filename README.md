@@ -39,7 +39,7 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - viewAllAssignmentsByDate
 - viewCourseAssignments
 - viewCompleteAndIncompleteCourseAssignments
-- sortCourseAssignmentsByType (or just viewByType??)
+- sortCourseAssignmentsByType
 
 ## Entities
 
@@ -110,7 +110,7 @@ Request
 
 ```json
 {
-    "userId": 1,
+    "userId": "1",
     "password": "pswdNew"
 }
 ```
@@ -121,7 +121,7 @@ Request
 
 ```json
 {
-    "userId": 1,
+    "userId": "1",
     "password": "pswd"
 }
 ```
@@ -130,7 +130,7 @@ Response
 
 ```json
 {
-    "userId": 1,
+    "userId": "1",
     "loggedIn": true
 }
 ```
@@ -151,7 +151,7 @@ Request
 
 ```json
 {
-    "courseId": 5,
+    "courseId": "5",
     "courseName": "IT&C 410"
 }
 ```
@@ -174,7 +174,7 @@ Request
 
 ```json
 {
-    "asgmtId": 4,
+    "asgmtId": "4",
     "completed": true
 }
 ```
@@ -186,21 +186,21 @@ Response
 ```json
 [
     {
-        "asgmtId": 1,
+        "asgmtId": "1",
         "asgmtName": "Ch 1 Reading",
         "dueDate": "1-17-2022",
         "type": "Reading",
         "completed": false   // include course ???
     },
     {
-        "asgmtId": 2,
+        "asgmtId": "2",
         "asgmtName": "Ch 1 Reflection",
         "dueDate": "1-19-2022",
         "type": "Homework",
         "completed": false
     },
     {
-        "asgmtId": 3,
+        "asgmtId": "3",
         "asgmtName": "Ch 1 Quiz",
         "dueDate": "1-21-2022",
         "type": "Quiz",
@@ -216,15 +216,15 @@ Response
 ```json
 [
     {
-        "courseId": 1,
+        "courseId": "1",
         "courseName": "IT 410"
     },
     {
-        "courseId": 2,
+        "courseId": "2",
         "courseName": "IT 477"
     },
     {
-        "courseId": 3,
+        "courseId": "3",
         "courseName": "IT 293"
     }
 ]
@@ -236,7 +236,7 @@ Request
 
 ```json
 {
-    "courseId": 1
+    "courseId": "1"
 }
 ```
 
@@ -245,21 +245,21 @@ Response
 ```json
 [
     {
-       "asgmtId": 4,
+       "asgmtId": "4",
         "asgmtName": "DDD",
         "dueDate": "1-19-2022",
         "type": "Reading",
         "completed": true
     },
     {
-        "asgmtId": 5,
+        "asgmtId": "5",
         "asgmtName": "RestAPI",
         "dueDate": "1-19-2022",
         "type": "Quiz",
         "completed": false
     },
     {
-        "asgmtId": 6,
+        "asgmtId": "6",
         "asgmtName": "OpenAPI Doc",
         "dueDate": "1-19-2022",
         "type": "Homework",
