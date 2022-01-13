@@ -60,10 +60,6 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - assignment type
 - completed (`true` or `false`)
 
-### Assignment Type ???
-- type id
-- name
-
 ## Value Objects
 
 ### object
@@ -86,19 +82,21 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | create assignment | `/courses/{courseId}/` | POST | `courseId` | Create Assignment | 
 | delete assignment | `courses/{courseId}/{asgmtId}` | DELETE | `courseId`, `asgmtId` |  |
 | modify assignment | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
-| mark assignment complete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment ?? |
-| mark assignment incomplete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment ?? | 
-| view all assignments | `/` | GET |  | Get All Assignments |
+| mark assignment complete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment |
+| mark assignment incomplete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
+| view all assignments | `/assignments` | GET |  | Get All Assignments |
 | view courses | `/courses` | GET |  | Get Courses |
 | view course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
-| view complete and incomplete course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments All |
-| sort course assignments by type | `/courses/{courseId}/type` ??? | GET | `courseId`, `asgmtId` | Get Course Assignments By Type | 
+| view complete and incomplete course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
+| sort course assignments by type | `/courses/{courseId}/type` | GET | `courseId`, `asgmtId` | Get Course Assignments | 
 
 ## Representations
 
 ### Create Account
 
-```
+Request
+
+```json
 {
     "username": "username",
     "name": "First Name",
@@ -108,89 +106,165 @@ These attributes allow for accessing assignments for a specific class, sorting a
 
 ### Modify Account
 
-```
+Request
+
+```json
 {
-    here
+    "userId": 1,
+    "password": "pswdNew"
 }
 ```
 
 ### Account Log In
 
-```
+Request
+
+```json
 {
-    here
+    "userId": 1,
+    "password": "pswd"
+}
+```
+
+Response
+
+```json
+{
+    "userId": 1,
+    "loggedIn": true
 }
 ```
 
 ### Create Course
 
-```
+Request
+
+```json
 {
-    here
+    "courseName": "IT 410"
 }
 ```
 
 ### Modify Course
 
-```
+Request
+
+```json
 {
-    here
+    "courseId": 5,
+    "courseName": "IT&C 410"
 }
 ```
 
 ### Create Assignment
 
-```
+Request
+
+```json
 {
-    here
+    "asgmtName": "Ch 1 Quiz",
+    "dueDate": "1-21-2022",
+    "type": "Quiz"
 }
 ```
 
 ### Modify Assignment
 
-```
+Request
+
+```json
 {
-    here
+    "asgmtId": 4,
+    "completed": true
 }
 ```
 
 ### Get All Assignments
 
-```
-{
-    here
-}
+Response
+
+```json
+[
+    {
+        "asgmtId": 1,
+        "asgmtName": "Ch 1 Reading",
+        "dueDate": "1-17-2022",
+        "type": "Reading",
+        "completed": false   // include course ???
+    },
+    {
+        "asgmtId": 2,
+        "asgmtName": "Ch 1 Reflection",
+        "dueDate": "1-19-2022",
+        "type": "Homework",
+        "completed": false
+    },
+    {
+        "asgmtId": 3,
+        "asgmtName": "Ch 1 Quiz",
+        "dueDate": "1-21-2022",
+        "type": "Quiz",
+        "completed": false
+    }
+]
 ```
 
 ### Get Courses
 
-```
-{
-    here
-}
+Response
+
+```json
+[
+    {
+        "courseId": 1,
+        "courseName": "IT 410"
+    },
+    {
+        "courseId": 2,
+        "courseName": "IT 477"
+    },
+    {
+        "courseId": 3,
+        "courseName": "IT 293"
+    }
+]
 ```
 
 ### Get Course Assignments
 
-```
+Request
+
+```json
 {
-    here
+    "courseId": 1
 }
 ```
 
-### Get Course Assignments All
+Response
 
-```
-{
-    here
-}
-```
-
-### Get Course Assignments By Type
-
-```
-{
-    here
-}
+```json
+[
+    {
+       "asgmtId": 4,
+        "asgmtName": "DDD",
+        "dueDate": "1-19-2022",
+        "type": "Reading",
+        "completed": true
+    },
+    {
+        "asgmtId": 5,
+        "asgmtName": "RestAPI",
+        "dueDate": "1-19-2022",
+        "type": "Quiz",
+        "completed": false
+    },
+    {
+        "asgmtId": 6,
+        "asgmtName": "OpenAPI Doc",
+        "dueDate": "1-19-2022",
+        "type": "Homework",
+        "completed": false
+    }
+]
 ```
 
