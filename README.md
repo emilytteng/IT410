@@ -55,15 +55,11 @@ These attributes allow for accessing assignments for a specific class, sorting a
 
 ### Assignment
 - assignment id
+- course id
 - name
 - due date
 - assignment type
 - completed (`true` or `false`)
-
-## Value Objects
-
-### object
-- here
 
 # REST API Design
 
@@ -82,13 +78,9 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | create assignment | `/courses/{courseId}/` | POST | `courseId` | Create Assignment | 
 | delete assignment | `courses/{courseId}/{asgmtId}` | DELETE | `courseId`, `asgmtId` |  |
 | modify assignment | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
-| mark assignment complete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment |
-| mark assignment incomplete | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
 | view all assignments | `/assignments` | GET |  | Get All Assignments |
 | view courses | `/courses` | GET |  | Get Courses |
 | view course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
-| view complete and incomplete course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
-| sort course assignments by type | `/courses/{courseId}/type` | GET | `courseId`, `asgmtId` | Get Course Assignments | 
 
 ## Representations
 
@@ -162,6 +154,7 @@ Request
 
 ```json
 {
+    "courseId": "1",
     "asgmtName": "Ch 1 Quiz",
     "dueDate": "1-21-2022",
     "type": "Quiz"
@@ -186,13 +179,15 @@ Response
 ```json
 [
     {
+        "courseId": "3",
         "asgmtId": "1",
         "asgmtName": "Ch 1 Reading",
         "dueDate": "1-17-2022",
         "type": "Reading",
-        "completed": false   // include course ???
+        "completed": false
     },
     {
+        "courseId": "4",
         "asgmtId": "2",
         "asgmtName": "Ch 1 Reflection",
         "dueDate": "1-19-2022",
@@ -200,6 +195,7 @@ Response
         "completed": false
     },
     {
+        "courseId": "2",
         "asgmtId": "3",
         "asgmtName": "Ch 1 Quiz",
         "dueDate": "1-21-2022",
@@ -245,6 +241,7 @@ Response
 ```json
 [
     {
+       "courseId": "1",
        "asgmtId": "4",
         "asgmtName": "DDD",
         "dueDate": "1-19-2022",
@@ -252,6 +249,7 @@ Response
         "completed": true
     },
     {
+        "courseId": "1",
         "asgmtId": "5",
         "asgmtName": "RestAPI",
         "dueDate": "1-19-2022",
@@ -259,6 +257,7 @@ Response
         "completed": false
     },
     {
+        "courseId": "1",
         "asgmtId": "6",
         "asgmtName": "OpenAPI Doc",
         "dueDate": "1-19-2022",
