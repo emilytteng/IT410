@@ -65,22 +65,22 @@ These attributes allow for accessing assignments for a specific class, sorting a
 
 ## Endpoints
 
-| Description | URL Fragment | HTTP Method | Path Parameters | Representation |
-| ----------- | ------------ | ----------- | --------------- | -------------- |
-| create account | `/accounts` | POST |  | Create Account |
-| modify account | `/accounts/{userId}` | PUT | `userId` | Modify Account | 
-| delete account | `/accounts/{userId}` | DELETE | `userId` |  |
-| log in | `/accounts/{userId}/login` | PUT | `userId` | Account Log In |
-| log out | `/accounts/{userId}/logout` | PUT | `userId` |  |
-| create course | `/courses` | POST |  | Create Course | 
-| delete course | `/courses/{courseId}` | DELETE | `courseId` |  |
-| modify course | `/courses/{courseId}` | PUT | `courseId` | Modify Course |
-| create assignment | `/courses/{courseId}/` | POST | `courseId` | Create Assignment | 
-| delete assignment | `courses/{courseId}/{asgmtId}` | DELETE | `courseId`, `asgmtId` |  |
-| modify assignment | `courses/{courseId}/{asgmtId}` | PUT | `courseId`, `asgmtId` | Modify Assignment | 
-| view all assignments | `/assignments` | GET |  | Get All Assignments |
-| view courses | `/courses` | GET |  | Get Courses |
-| view course assignments | `/courses/{courseId}/` | GET | `courseId` | Get Course Assignments |
+| Description             | URL Fragment                   | HTTP Method | Path Parameters       | Representation         |
+| -----------             | ------------                   | ----------- | ---------------       | --------------         |
+| create account          | `/accounts`                    | POST        |                       | Create Account         |
+| modify account          | `/accounts/{userId}`           | PUT         | `userId`              | Modify Account         | 
+| delete account          | `/accounts/{userId}`           | DELETE      | `userId`              |                        |
+| log in                  | `/accounts/{userId}/login`     | PUT         | `userId`              | Account Log In         |
+| log out                 | `/accounts/{userId}/logout`    | PUT         | `userId`              |                        |
+| view courses            | `/courses`                     | GET         |                       | Get Courses            |
+| create course           | `/courses`                     | POST        |                       | Create Course          | 
+| view course assignments | `/courses/{courseId}`          | GET         | `courseId`            | Get Course Assignments |
+| create assignment       | `/courses/{courseId}`          | POST        | `courseId`            | Create Assignment      | 
+| modify course           | `/courses/{courseId}`          | PUT         | `courseId`            | Modify Course          |
+| delete course           | `/courses/{courseId}`          | DELETE      | `courseId`            |                        |
+| modify assignment       | `courses/{courseId}/{asgmtId}` | PUT         | `courseId`, `asgmtId` | Modify Assignment      | 
+| delete assignment       | `courses/{courseId}/{asgmtId}` | DELETE      | `courseId`, `asgmtId` |                        |
+| view all assignments    | `/assignments`                 | GET         |                       | Get All Assignments    |
 
 ## Representations
 
@@ -127,6 +127,27 @@ Response
 }
 ```
 
+### Get Courses
+
+Response
+
+```json
+[
+    {
+        "courseId": "1",
+        "courseName": "IT 410"
+    },
+    {
+        "courseId": "2",
+        "courseName": "IT 477"
+    },
+    {
+        "courseId": "3",
+        "courseName": "IT 293"
+    }
+]
+```
+
 ### Create Course
 
 Request
@@ -137,15 +158,45 @@ Request
 }
 ```
 
-### Modify Course
+### Get Course Assignments
 
 Request
 
 ```json
 {
-    "courseId": "5",
-    "courseName": "IT&C 410"
+    "courseId": "1"
 }
+```
+
+Response
+
+```json
+[
+    {
+       "courseId": "1",
+       "asgmtId": "4",
+        "asgmtName": "DDD",
+        "dueDate": "1-19-2022",
+        "type": "Reading",
+        "completed": true
+    },
+    {
+        "courseId": "1",
+        "asgmtId": "5",
+        "asgmtName": "RestAPI",
+        "dueDate": "1-19-2022",
+        "type": "Quiz",
+        "completed": false
+    },
+    {
+        "courseId": "1",
+        "asgmtId": "6",
+        "asgmtName": "OpenAPI Doc",
+        "dueDate": "1-19-2022",
+        "type": "Homework",
+        "completed": false
+    }
+]
 ```
 
 ### Create Assignment
@@ -158,6 +209,17 @@ Request
     "asgmtName": "Ch 1 Quiz",
     "dueDate": "1-21-2022",
     "type": "Quiz"
+}
+```
+
+### Modify Course
+
+Request
+
+```json
+{
+    "courseId": "5",
+    "courseName": "IT&C 410"
 }
 ```
 
@@ -200,68 +262,6 @@ Response
         "asgmtName": "Ch 1 Quiz",
         "dueDate": "1-21-2022",
         "type": "Quiz",
-        "completed": false
-    }
-]
-```
-
-### Get Courses
-
-Response
-
-```json
-[
-    {
-        "courseId": "1",
-        "courseName": "IT 410"
-    },
-    {
-        "courseId": "2",
-        "courseName": "IT 477"
-    },
-    {
-        "courseId": "3",
-        "courseName": "IT 293"
-    }
-]
-```
-
-### Get Course Assignments
-
-Request
-
-```json
-{
-    "courseId": "1"
-}
-```
-
-Response
-
-```json
-[
-    {
-       "courseId": "1",
-       "asgmtId": "4",
-        "asgmtName": "DDD",
-        "dueDate": "1-19-2022",
-        "type": "Reading",
-        "completed": true
-    },
-    {
-        "courseId": "1",
-        "asgmtId": "5",
-        "asgmtName": "RestAPI",
-        "dueDate": "1-19-2022",
-        "type": "Quiz",
-        "completed": false
-    },
-    {
-        "courseId": "1",
-        "asgmtId": "6",
-        "asgmtName": "OpenAPI Doc",
-        "dueDate": "1-19-2022",
-        "type": "Homework",
         "completed": false
     }
 ]
