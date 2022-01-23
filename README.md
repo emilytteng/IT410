@@ -71,7 +71,7 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | modify account          | `/accounts/{userId}`           | PUT         | `userId`              | Modify Account         | 
 | delete account          | `/accounts/{userId}`           | DELETE      | `userId`              |                        |
 | log in                  | `/accounts/{userId}/login`     | PUT         | `userId`              | Account Log In         |
-| log out                 | `/accounts/{userId}/logout`    | PUT         | `userId`              |                        |
+| log out                 | `/accounts/{userId}/logout`    | PUT         | `userId`              | Account Log Out        |
 | view courses            | `/courses`                     | GET         |                       | Get Courses            |
 | create course           | `/courses`                     | POST        |                       | Create Course          | 
 | view course assignments | `/courses/{courseId}`          | GET         | `courseId`            | Get Course Assignments |
@@ -80,7 +80,7 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | delete course           | `/courses/{courseId}`          | DELETE      | `courseId`            |                        |
 | modify assignment       | `courses/{courseId}/{asgmtId}` | PUT         | `courseId`, `asgmtId` | Modify Assignment      | 
 | delete assignment       | `courses/{courseId}/{asgmtId}` | DELETE      | `courseId`, `asgmtId` |                        |
-| view all assignments    | `/assignments`                 | GET         |                       | Get All Assignments    |
+| view all assignments    | `/assignments`                 | GET         |                       |                        |
 
 ## Representations
 
@@ -118,12 +118,13 @@ Request
 }
 ```
 
-Response
+### Account Log Out
+
+Request
 
 ```json
 {
-    "userId": "1",
-    "loggedIn": true
+    "userId": "1"
 }
 ```
 
