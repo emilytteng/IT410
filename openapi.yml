@@ -105,7 +105,23 @@ paths:
       tags:
         - Courses
       summary: Get courses
-      # FINISH
+      parameters:
+        - name: userId
+          in: query
+          schema:
+            type: string
+            readOnly: true
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Account/Courses'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
     post:
       tags:
         - Courses
@@ -137,7 +153,23 @@ paths:
       tags:
         - Assignments
       summary: Get course assignments
-      # FINISH
+      parameters:
+        - name: courseId
+          in: query
+          schema:
+            type: string
+            readOnly: true
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Courses'
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
     post:
       tags:
         - Assignments
@@ -215,7 +247,23 @@ paths:
       tags:
         - Assignments
       summary: Get all assignments
-      # FINISH
+            parameters:
+        - name: userId # ???
+          in: query
+          schema:
+            type: string
+            readOnly: true
+      responses:
+        200:
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Account/Courses' # ???
+        400:
+          description: Invalid request.
+        401:
+          description: Not authenticated.
 components:
   parameters:
     PathAccountId:
@@ -338,37 +386,3 @@ components:
         completed:
           type: boolean
           nullable: true
-
-
-# FROM SAMPLE
-  /tasks:
-    get:
-      tags:
-        - Tasks
-      summary: Get tasks.
-      parameters:
-        - name: completed
-          in: query
-          schema:
-            type: boolean
-        - name: dueDateAfter
-          in: query
-          schema:
-            type: string
-            format: date-time
-        - name: dueDateBefore
-          in: query
-          schema:
-            type: string
-            format: date-time
-      responses:
-        200:
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Tasks'
-        400:
-          description: Invalid request.
-        401:
-          description: Not authenticated.
