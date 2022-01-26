@@ -33,9 +33,9 @@ paths:
           description: Invalid request.
         409:
           description: Account already exists.
-  /accounts/{accountId}:
+  /accounts/{userId}:
     parameters:
-      - $ref: '#components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathAccountId'
     put:
       tags:
         - Accounts
@@ -60,9 +60,9 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /accounts/{accountId}/login:
+  /accounts/{userId}/login:
     parameters:
-      - $ref: '#components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathAccountId'
     put:
       tags:
         - Accounts
@@ -74,7 +74,7 @@ paths:
             schema:
               type: object
               required:
-                - password:
+                - password
               properties:
                 password:
                   type: string
@@ -88,18 +88,18 @@ paths:
           description: Invalid request.
         403:
           description: Access denied.
-  /accounts/{accountId}/logout:
+  /accounts/{userId}/logout:
     parameters:
-      - $ref: '#components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathAccountId'
     put:
       tags:
         - Accounts
       summary: Log out
-      response:
+      responses:
         200:
-          descriptions: Logged out.
+          description: Logged out.
         403:
-          descriptions: Access denied.
+          description: Access denied.
   /courses:
     get:
       tags:
@@ -117,7 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Account/Courses'
+                $ref: '#/components/schemas/Courses'
         400:
           description: Invalid request.
         401:
@@ -165,7 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Courses'
+                $ref: '#/components/schemas/Course'
         400:
           description: Invalid request.
         401:
@@ -175,8 +175,8 @@ paths:
         - Assignments
       summary: Create an assignment
       requestBody:
-        - $ref: '#/components/requestBodies/CreateAssignment'
-      response:
+        $ref: '#/components/requestBodies/CreateAssignment'
+      responses:
         201:
           description: Assignment created.
         400:
@@ -188,7 +188,7 @@ paths:
         - Courses
       summary: Modify a course
       requestBody:
-        - $ref: '#/components/requestBodies/ModifyAssignment'
+        $ref: '#/components/requestBodies/ModifyAssignment'
       responses:
         200:
           description: Course modified.
@@ -211,15 +211,16 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /courses/{coursesId}/{asgmtId}:
+  /courses/{courseId}/{asgmtId}:
     parameters:
+      - $ref: '#/components/parameters/PathCourseId'
       - $ref: '#/components/parameters/PathAssignmentId'
     put:
       tags:
         - Assignments
       summary: Modify an assignment
       requestBody:
-        - $ref: '#/components/requrestBodies/CreateCourse'
+        $ref: '#/components/requestBodies/CreateCourse'
       responses:
         200:
           description: Assignment modified.
@@ -247,8 +248,8 @@ paths:
       tags:
         - Assignments
       summary: Get all assignments
-            parameters:
-        - name: userId # ???
+      parameters:
+        - name: userId
           in: query
           schema:
             type: string
@@ -259,7 +260,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Account/Courses' # ???
+                $ref: '#/components/schemas/Course'
         400:
           description: Invalid request.
         401:
@@ -269,7 +270,7 @@ components:
     PathAccountId:
       name: userId
       in: path
-      requred: true
+      required: true
       schema:
         type: string
     PathCourseId:
@@ -284,9 +285,9 @@ components:
       required: true
       schema:
         type: string
-  requrestBodies:
+  requestBodies:
     CreateAccount:
-      requred: true
+      required: true
       content:
         application/json:
           schema:
@@ -357,6 +358,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Courses'
+    Courses:
+      type: array
+      items:
+        type: string
     Course:
       type: object
       properties:
