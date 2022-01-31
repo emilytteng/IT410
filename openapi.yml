@@ -355,13 +355,17 @@ components:
         loggedIn:
           type: boolean
         courses:
-          type: array
-          items:
-            $ref: '#/components/schemas/Courses'
+          $ref: '#/components/schemas/Courses'
     Courses:
       type: array
       items:
-        type: string
+        type: object
+        properties:
+          courseId:
+            type: string
+            readOnly: true
+          courseName:
+            type: string
     Course:
       type: object
       properties:

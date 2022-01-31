@@ -1,0 +1,22 @@
+{
+  "name": "package.json",
+  "version": "7.0.0",
+  "description": "This project will make it possible for students to track and manage coursework throughout multiple courses. Students can add different assignment types (homework, readings, quizzes, exams, etc.) with corresponding due dates and update its completion status.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilytteng/IT410.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilytteng/IT410/issues"
+  },
+  "homepage": "https://github.com/emilytteng/IT410#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
