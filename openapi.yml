@@ -4,6 +4,7 @@ info:
   version: v1
 paths:
   /accounts:
+  # add x-controller and operation to all paths?
     post:
       tags:
         - Accounts
@@ -110,7 +111,6 @@ paths:
           in: query
           schema:
             type: string
-            readOnly: true
       responses:
         200:
           description: Success.
@@ -158,7 +158,6 @@ paths:
           in: query
           schema:
             type: string
-            readOnly: true
       responses:
         200:
           description: Success.
@@ -175,7 +174,31 @@ paths:
         - Assignments
       summary: Create an assignment
       requestBody:
-        $ref: '#/components/requestBodies/CreateAssignment'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - courseId
+                - asgmtName
+                - dueDate
+                - asgmtType
+              properties:
+                courseId:
+                  type: string
+                asgmtName:
+                  type: string
+                dueDate:
+                  type: string
+                  format: date-time
+                asgmtType:
+                  type: string
+              example:
+                courseId: 4 
+                asgmtName: Ch 1 Quiz
+                dueDate: 2022-02-15T20:32:26.574Z
+                asgmtType: quiz
       responses:
         201:
           description: Assignment created.
@@ -253,7 +276,6 @@ paths:
           in: query
           schema:
             type: string
-            readOnly: true
       responses:
         200:
           description: Success.
@@ -392,6 +414,8 @@ components:
         dueDate:
           type: string
           format: date-time
+        asgmtType:
+          type: string
         completed:
           type: boolean
           nullable: true

@@ -1,10 +1,11 @@
-const server = require('./server').server
+const app = require('./server')
 
-async function run () {
-    const app = await server()
-    app.listen(3000, () => {
-        console.log('server is running on port 3000')
-    })
-}
+app.listen(3000, () => {
+    console.log('server is running on port 3000')
+})
 
-run().catch(console.error)
+/*
+app.listen(3001, () => {
+    console.log('server is running on port 3001')
+})
+*/
