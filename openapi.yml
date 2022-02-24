@@ -10,23 +10,7 @@ paths:
         - Accounts
       summary: Create an account
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - username
-                - password
-              properties:
-                username:
-                  type: string
-                password:
-                  type: string
-                  format: password
-            example:
-              username: janedoe
-              password: p@ssword
+        $ref: '#/components/requestBodies/CreateAccount'
       responses:
         201:
           description: Account created.
@@ -41,6 +25,8 @@ paths:
       tags:
         - Accounts
       summary: Modify account
+      requestBody:
+        $ref: '#/components/requestBodies/ModifyAccount'
       responses:
         200:
           description: Account updated.
@@ -69,19 +55,7 @@ paths:
         - Accounts
       summary: Log in
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - password
-              properties:
-                password:
-                  type: string
-                  format: password
-            example:
-              password: p@ssword
+        $ref: '#/components/requestBodies/AccountLogIn'
       responses:
         200:
           description: Authenticated.
@@ -127,18 +101,7 @@ paths:
         - Courses
       summary: Create a course
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - courseName
-              properties:
-                courseName:
-                  type: string
-            example:
-              courseName: ITC 410
+        $ref: '#/components/requestBodies/CreateCourse'
       responses:
         201:
           description: Course created.
@@ -174,31 +137,7 @@ paths:
         - Assignments
       summary: Create an assignment
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - courseId
-                - asgmtName
-                - dueDate
-                - asgmtType
-              properties:
-                courseId:
-                  type: string
-                asgmtName:
-                  type: string
-                dueDate:
-                  type: string
-                  format: date-time
-                asgmtType:
-                  type: string
-              example:
-                courseId: 4 
-                asgmtName: Ch 1 Quiz
-                dueDate: 2022-02-15T20:32:26.574Z
-                asgmtType: quiz
+        $ref: '#/components/requestBodies/CreateAssignment'
       responses:
         201:
           description: Assignment created.
@@ -211,7 +150,7 @@ paths:
         - Courses
       summary: Modify a course
       requestBody:
-        $ref: '#/components/requestBodies/ModifyAssignment'
+        $ref: '#/components/requestBodies/ModifyCourse'
       responses:
         200:
           description: Course modified.
@@ -243,7 +182,7 @@ paths:
         - Assignments
       summary: Modify an assignment
       requestBody:
-        $ref: '#/components/requestBodies/CreateCourse'
+        $ref: '#/components/requestBodies/ModifyAssignment'
       responses:
         200:
           description: Assignment modified.
@@ -313,71 +252,137 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Account'
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+                format: password
+          example:
+            username: janedoe
+            password: p@ssword
     ModifyAccount:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Account'
+            type: object
+            required:
+              - userId
+              - password
+            properties:
+              userId:
+                type: string
+              password:
+                type: string
+                format: password
+          example:
+            userId: 3
+            password: newP@ssword
     AccountLogIn:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Account'
-    AccountLogOut:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Account'
+            type: object
+            required:
+              - password
+            properties:
+              password:
+                type: string
+                format: password
+          example:
+            password: p@ssword
     CreateCourse:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Course'
-    GetCourseAssignments:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Course'
+            type: object
+            required:
+              - courseName
+            properties:
+              courseName:
+                type: string
+          example:
+            courseName: ITC 410
     CreateAssignment:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Assignment'
+            type: object
+            required:
+              - asgmtName
+              - dueDate
+              - asgmtType
+            properties:
+              asgmtName:
+                type: string
+              dueDate:
+                type: string
+                format: date-time
+              asgmtType:
+                type: string
+            example:
+              asgmtName: Ch 1 Quiz
+              dueDate: 2022-02-15T20:32:26.574Z
+              asgmtType: quiz
     ModifyCourse:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Course'
+            type: object
+            required:
+              - courseId
+              - courseName
+            properties:
+              courseId:
+                type: string
+              courseName:
+                type: string
+          example:
+            courseId: 4
+            courseName: Updated Course Name
     ModifyAssignment:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Assignment'
+            type: object
+            required:
+              - asgmtId
+              - completed
+            properties:
+              asgmtId:
+                type: string
+              completed:
+                type: boolean
+                nullable: true
+          example:
+            asgmtId: 3
+            completed: true
   schemas:
-    Account:
-      type: object
-      properties:
-        userId:
-          type: string
-          readOnly: true
-        userName:
-          type: string
-        password:
-          type: string
-          format: password
-        loggedIn:
-          type: boolean
-        courses:
-          $ref: '#/components/schemas/Courses'
+  #  Account:
+  #    type: object
+  #    properties:
+  #      userId:
+  #        type: string
+  #        readOnly: true
+  #      userName:
+  #        type: string
+  #      password:
+  #        type: string
+  #        format: password
+  #      loggedIn:
+  #        type: boolean
+  #      courses:
+  #        $ref: '#/components/schemas/Courses'
     Courses:
       type: array
       items:

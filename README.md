@@ -71,7 +71,7 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | modify account          | `/accounts/{userId}`           | PUT         | `userId`              | Modify Account         | 
 | delete account          | `/accounts/{userId}`           | DELETE      | `userId`              |                        |
 | log in                  | `/accounts/{userId}/login`     | PUT         | `userId`              | Account Log In         |
-| log out                 | `/accounts/{userId}/logout`    | PUT         | `userId`              | Account Log Out        |
+| log out                 | `/accounts/{userId}/logout`    | PUT         | `userId`              |                        |
 | view courses            | `/courses`                     | GET         |                       | Get Courses            |
 | create course           | `/courses`                     | POST        |                       | Create Course          | 
 | view course assignments | `/courses/{courseId}`          | GET         | `courseId`            | Get Course Assignments |
@@ -91,7 +91,6 @@ Request
 ```json
 {
     "username": "username",
-    "name": "First Name",
     "password": "pswd"
 }
 ```
@@ -113,18 +112,7 @@ Request
 
 ```json
 {
-    "userId": "1",
     "password": "pswd"
-}
-```
-
-### Account Log Out
-
-Request
-
-```json
-{
-    "userId": "1"
 }
 ```
 
@@ -160,14 +148,6 @@ Request
 ```
 
 ### Get Course Assignments
-
-Request
-
-```json
-{
-    "courseId": "1"
-}
-```
 
 Response
 
@@ -206,7 +186,6 @@ Request
 
 ```json
 {
-    "courseId": "1",
     "asgmtName": "Ch 1 Quiz",
     "dueDate": "1-21-2022",
     "type": "Quiz"
@@ -267,4 +246,3 @@ Response
     }
 ]
 ```
-
