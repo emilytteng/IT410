@@ -4,8 +4,9 @@ info:
   version: v1
 paths:
   /accounts:
-  # add x-controller and operation to all paths?
+    x-controller: accounts
     post:
+      x-operation: createAccount
       tags:
         - Accounts
       summary: Create an account
@@ -18,10 +19,12 @@ paths:
           description: Invalid request.
         409:
           description: Account already exists.
-  /accounts/{userId}:
+  /accounts/{username}:
+    x-controller: accounts
     parameters:
-      - $ref: '#/components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathAccountName'
     put:
+      x-operation: modifyAccount
       tags:
         - Accounts
       summary: Modify account
@@ -37,6 +40,7 @@ paths:
         404:
           description: Not found.
     delete:
+      x-operation: deleteAccount
       tags:
         - Accounts
       summary: Delete account
@@ -47,9 +51,9 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /accounts/{userId}/login:
+  /accounts/{username}/login:
     parameters:
-      - $ref: '#/components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathAccountName'
     put:
       tags:
         - Accounts
@@ -63,9 +67,9 @@ paths:
           description: Invalid request.
         403:
           description: Access denied.
-  /accounts/{userId}/logout:
+  /accounts/{username}/logout:
     parameters:
-      - $ref: '#/components/parameters/PathAccountId'
+      - $ref: '#/components/parameters/PathAccountName'
     put:
       tags:
         - Accounts
@@ -80,11 +84,11 @@ paths:
       tags:
         - Courses
       summary: Get courses
-      parameters:
-        - name: userId
-          in: query
-          schema:
-            type: string
+      # parameters:
+      #   - name: username
+      #     in: query
+      #     schema:
+      #       type: string
       responses:
         200:
           description: Success.
@@ -228,8 +232,8 @@ paths:
           description: Not authenticated.
 components:
   parameters:
-    PathAccountId:
-      name: userId
+    PathAccountName:
+      name: username
       in: path
       required: true
       schema:
@@ -272,16 +276,12 @@ components:
           schema:
             type: object
             required:
-              - userId
               - password
             properties:
-              userId:
-                type: string
               password:
                 type: string
                 format: password
           example:
-            userId: 3
             password: newP@ssword
     AccountLogIn:
       required: true
@@ -347,7 +347,7 @@ components:
               courseName:
                 type: string
           example:
-            courseId: 4
+            courseId: '4'
             courseName: Updated Course Name
     ModifyAssignment:
       required: true
@@ -365,7 +365,7 @@ components:
                 type: boolean
                 nullable: true
           example:
-            asgmtId: 3
+            asgmtId: '3'
             completed: true
   schemas:
   #  Account:
@@ -423,4 +423,3 @@ components:
           type: string
         completed:
           type: boolean
-          nullable: true
