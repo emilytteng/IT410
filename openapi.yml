@@ -27,6 +27,8 @@ paths:
       x-operation: modifyAccount
       tags:
         - Accounts
+      security:
+        - cookieAuth: []
       summary: Modify account
       requestBody:
         $ref: '#/components/requestBodies/ModifyAccount'
@@ -43,6 +45,8 @@ paths:
       x-operation: deleteAccount
       tags:
         - Accounts
+      security:
+        - cookieAuth: []
       summary: Delete account
       responses:
         204:
@@ -51,44 +55,39 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /accounts/{username}/login:
-    parameters:
-      - $ref: '#/components/parameters/PathAccountName'
+  /authentication/login:
+    x-controller: authentication
     put:
+      x-operation: login
       tags:
-        - Accounts
+        - Athentication
       summary: Log in
       requestBody:
-        $ref: '#/components/requestBodies/AccountLogIn'
+        $ref: '#/components/requestBodies/Login'
       responses:
         200:
           description: Authenticated.
         400:
           description: Invalid request.
-        403:
-          description: Access denied.
-  /accounts/{username}/logout:
-    parameters:
-      - $ref: '#/components/parameters/PathAccountName'
+        401:
+          description: Not Authenticated.
+  /authentication/logout:
+    x-controller: authentication
     put:
+      x-operation: logout
       tags:
-        - Accounts
+        - Authentication
       summary: Log out
       responses:
         200:
           description: Logged out.
-        403:
-          description: Access denied.
   /courses:
     get:
       tags:
         - Courses
+      security:
+        - cookieAuth: []
       summary: Get courses
-      # parameters:
-      #   - name: username
-      #     in: query
-      #     schema:
-      #       type: string
       responses:
         200:
           description: Success.
@@ -103,6 +102,8 @@ paths:
     post:
       tags:
         - Courses
+      security:
+        - cookieAuth: []
       summary: Create a course
       requestBody:
         $ref: '#/components/requestBodies/CreateCourse'
@@ -119,6 +120,8 @@ paths:
     get:
       tags:
         - Assignments
+      security:
+        - cookieAuth: []
       summary: Get course assignments
       parameters:
         - name: courseId
@@ -139,6 +142,8 @@ paths:
     post:
       tags:
         - Assignments
+      security:
+        - cookieAuth: []
       summary: Create an assignment
       requestBody:
         $ref: '#/components/requestBodies/CreateAssignment'
@@ -152,6 +157,8 @@ paths:
     put:
       tags:
         - Courses
+      security:
+        - cookieAuth: []
       summary: Modify a course
       requestBody:
         $ref: '#/components/requestBodies/ModifyCourse'
@@ -169,6 +176,8 @@ paths:
     delete:
       tags:
         - Courses
+      security:
+        - cookieAuth: []
       summary: Delete a course
       responses:
         204:
@@ -184,6 +193,8 @@ paths:
     put:
       tags:
         - Assignments
+      security:
+        - cookieAuth: []
       summary: Modify an assignment
       requestBody:
         $ref: '#/components/requestBodies/ModifyAssignment'
@@ -201,6 +212,8 @@ paths:
     delete:
       tags:
         - Assignments
+      security:
+        - cookieAuth: []
       summary: Delete an assignment
       responses:
         204:
@@ -213,6 +226,8 @@ paths:
     get:
       tags:
         - Assignments
+      security:
+        - cookieAuth: []
       summary: Get all assignments
       parameters:
         - name: userId
@@ -283,19 +298,23 @@ components:
                 format: password
           example:
             password: newP@ssword
-    AccountLogIn:
+    Login:
       required: true
       content:
         application/json:
           schema:
             type: object
             required:
+              - username
               - password
             properties:
+              username:
+                type: string
               password:
                 type: string
                 format: password
           example:
+            username: janedoe
             password: p@ssword
     CreateCourse:
       required: true
@@ -367,22 +386,12 @@ components:
           example:
             asgmtId: '3'
             completed: true
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: AMSessionId
   schemas:
-  #  Account:
-  #    type: object
-  #    properties:
-  #      userId:
-  #        type: string
-  #        readOnly: true
-  #      userName:
-  #        type: string
-  #      password:
-  #        type: string
-  #        format: password
-  #      loggedIn:
-  #        type: boolean
-  #      courses:
-  #        $ref: '#/components/schemas/Courses'
     Courses:
       type: array
       items:
