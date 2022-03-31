@@ -7,6 +7,8 @@ const { Pool } = require('pg')
 const path = require('path')
 const Accounts = require('./controllers/account')
 const Authentication = require('./controllers/authentication')
+const Courses = require('./controllers/course')
+const Assignments = require('./controllers/assignment')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
@@ -116,8 +118,9 @@ app.use((req, res, next) => {
 
 app.use(enforcerMiddleware.route({
 	accounts: Accounts(pool),
-    authentication: Authentication(passport)
-    // courses, assignments
+    authentication: Authentication(passport),
+    courses: Courses(pool),
+	assignments: Assignments(pool)
 }))
 
 // add fallback mocking middleware
