@@ -82,7 +82,9 @@ paths:
         200:
           description: Logged out.
   /courses:
+    x-controller: courses
     get:
+      x-operation: getCourseList
       tags:
         - Courses
       security:
@@ -100,6 +102,7 @@ paths:
         401:
           description: Not authenticated.
     post:
+      x-operation: createCourse
       tags:
         - Courses
       security:
@@ -118,6 +121,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/PathCourseId'
     get:
+      x-controller: assignments
+      x-operation: getCourseAssignments
       tags:
         - Assignments
       security:
@@ -140,6 +145,8 @@ paths:
         401:
           description: Not authenticated.
     post:
+      x-controller: assignments
+      x-operation: createAssignment
       tags:
         - Assignments
       security:
@@ -152,9 +159,11 @@ paths:
           description: Assignment created.
         400:
           description: Invalid request.
-        401:
-          description: Not authenticated.
+        409:
+          description: Account already exists.
     put:
+      x-controller: courses
+      x-operation: modifyCourse
       tags:
         - Courses
       security:
@@ -174,6 +183,8 @@ paths:
         404:
           description: Not found.
     delete:
+      x-controller: courses
+      x-operation: deleteCourse
       tags:
         - Courses
       security:
@@ -187,10 +198,12 @@ paths:
         403:
           description: Access denied.
   /courses/{courseId}/{asgmtId}:
+    x-controller: assignments
     parameters:
       - $ref: '#/components/parameters/PathCourseId'
       - $ref: '#/components/parameters/PathAssignmentId'
     put:
+      x-operation: modifyAssignment
       tags:
         - Assignments
       security:
@@ -210,6 +223,7 @@ paths:
         404:
           description: Not found.
     delete:
+      x-operation: deleteAssignment
       tags:
         - Assignments
       security:
@@ -222,29 +236,6 @@ paths:
           description: Not authenticated.
         403:
           description: Access denied.
-  /assignments:
-    get:
-      tags:
-        - Assignments
-      security:
-        - cookieAuth: []
-      summary: Get all assignments
-      parameters:
-        - name: userId
-          in: query
-          schema:
-            type: string
-      responses:
-        200:
-          description: Success.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Course'
-        400:
-          description: Invalid request.
-        401:
-          description: Not authenticated.
 components:
   parameters:
     PathAccountName:
@@ -358,11 +349,8 @@ components:
           schema:
             type: object
             required:
-              - courseId
               - courseName
             properties:
-              courseId:
-                type: string
               courseName:
                 type: string
           example:
@@ -375,11 +363,8 @@ components:
           schema:
             type: object
             required:
-              - asgmtId
               - completed
             properties:
-              asgmtId:
-                type: string
               completed:
                 type: boolean
                 nullable: true
@@ -397,38 +382,30 @@ components:
       items:
         type: object
         properties:
-          courseId:
+          courseid:
             type: string
             readOnly: true
-          courseName:
+          coursename:
             type: string
     Course:
-      type: object
-      properties:
-        courseId:
-          type: string
-          readOnly: true
-        courseName:
-          type: string
-        assignments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Assignment'
+      type: array
+      items:
+        $ref: '#/components/schemas/Assignment'
     Assignment:
       type: object
       properties:
-        asgmtId:
+        asgmtid:
           type: string
           readOnly: true
-        courseId:
+        courseid:
           type: string
           readOnly: true
-        asgmtName:
+        asgmtname:
           type: string
-        dueDate:
+        duedate:
           type: string
           format: date-time
-        asgmtType:
+        asgmttype:
           type: string
         completed:
           type: boolean

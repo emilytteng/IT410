@@ -1,5 +1,3 @@
-const { getAccountByUsername } = require("../database/account")
-
 const courses = require('../database/course')
 
 module.exports = function(pool) {

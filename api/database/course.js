@@ -11,7 +11,7 @@ exports.createCourse = async function (client, userId, courseName) {
             courseName
         ]
     })
-    return rowCount > 0 ? userId : undefined
+    return rowCount > 0 ? courseId : undefined
 }
 
 exports.getCourseById = async function (client, courseId) {
