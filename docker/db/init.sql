@@ -25,7 +25,8 @@ CREATE TABLE "courses" (
     "userid" varchar(50) NOT NULL,
     "courseid" varchar(50) NOT NULL,
     "coursename" varchar(50) NOT NULL,
-    PRIMARY KEY ("courseid")
+    PRIMARY KEY ("courseid"),
+    FOREIGN KEY ("userid") REFERENCES "accounts" ("userid") ON DELETE CASCADE
 );
 
 CREATE INDEX "courses_userid" ON "courses" ("userid");
@@ -39,5 +40,6 @@ CREATE TABLE "assignments" (
     "duedate" timestamptz NOT NULL,
     "asgmttype" varchar(50) NOT NULL,
     "completed" boolean NOT NULL,
-    PRIMARY KEY ("asgmtid")
+    PRIMARY KEY ("asgmtid"),
+    FOREIGN KEY ("courseid") REFERENCES "courses" ("courseid") ON DELETE CASCADE
 );

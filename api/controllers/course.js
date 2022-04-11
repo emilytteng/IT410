@@ -17,8 +17,6 @@ module.exports = function(pool) {
             else {
                 res.enforcer.status(409).send()
             }
-
-            // fail? 400?
         },
 
         async modifyCourse (req, res) { // PUT /courses/{courseId}
@@ -43,7 +41,6 @@ module.exports = function(pool) {
                     console.log("course modified in db")
 					res.enforcer.status(200).send()
                 }
-                // 400?
                 await client.query('COMMIT')
             }
             catch (e) {
@@ -76,7 +73,6 @@ module.exports = function(pool) {
 					console.log("course deleted from db")
 					res.enforcer.status(204).send()
 				}
-                // 400 401?
 				await client.query('COMMIT')
             }
             catch (e) {
@@ -91,7 +87,13 @@ module.exports = function(pool) {
         async getCourseList (req, res) { // GET /courses
             console.log("getCourseList reached")
             const courseList = await courses.getCourseList(pool, req.user.id)
-            res.enforcer.status(200).send(courseList)
+            if (courseList) {
+                res.enforcer.status(200).send(courseList)
+            }
+            else {
+                console.log("no courses")
+                res.enforcer.status(400)
+            }
         }
     }
 }
