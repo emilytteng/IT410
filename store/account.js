@@ -36,6 +36,7 @@ export const actions = {
 
     async logout ({ commit }) {
         const res = await this.$axios.put('/api/authentication/logout')
+        
         if (res.status === 200) {
             commit('setUser', null)
         }

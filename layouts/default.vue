@@ -29,6 +29,7 @@
 <script>
 export default {
   name: 'DefaultLayout',
+
   data () {
     return {
       clipped: false,
@@ -36,6 +37,7 @@ export default {
       title: 'My Course Manager'
     }
   },
+
   methods: {
     logout () {
       this.$store.dispatch('account/logout')
@@ -46,6 +48,7 @@ export default {
       this.$router.push('/register')
     }
   },
+  
   computed: {
         user () {
             return this.$store.state.account.user

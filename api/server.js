@@ -20,40 +20,43 @@ const ConnectPgSimple = require('connect-pg-simple')(session)
 const pool = new Pool({
     host: process.env.POSTGRES_HOST,
     database: process.env.POSTGRES_DB,
-  user: process.env.POSTGRES_USER,
+  	user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     port: +process.env.POSTGRES_PORT
 })
 
 // test that we can connect to the database
 pool.query('SELECT NOW()', (err, res) => {
-  if (err) {
-      console.error(err)
-      process.exit(1)
-  } else {
-      console.log('Database connected')
-  }
+	if (err) {
+		console.error(err)
+		process.exit(1)
+	} 
+	else {
+		console.log('Database connected')
+	}
 })
 
 // set up passport local strategy
 passport.use(new LocalStrategy((username, password, done) => {
-	console.log("in passport.use")
+	// console.log("in passport.use")
+
 	DatabaseAccounts.getAccountByUsername(pool, username)
 		.then(async account => {
+
 			// if no account with the username was found then authentication failed
 			if (account === undefined) {
 				done(null, false)
-			} else {
+			} 
+			else {
 				// compare encrypted password
 				const match = await bcrypt.compare(password, account.password)
-				console.log("compared passwords")
+				// console.log("compared passwords")
+
 				if (match) {
 					// passwords matched, so create the user object
 					done(null, { id: account.userid, username: account.username})
-				} else {
-					//const hash = await bcrypt.hash(password, 10)
-					//const m2 = await bcrypt.compare(password, hash)		// ???
-
+				} 
+				else {
 					// passwords did not match
 					done(null, false)
 				}
@@ -106,8 +109,10 @@ app.use(passport.session())
 
 app.use((req, res, next) => {
 	const { operation } = req.enforcer
+
 	if (operation.security !== undefined) {
 		const sessionIsRequired = operation.security.find(obj => obj.cookieAuth !== undefined)
+		
 		if (sessionIsRequired && !req.user) {
 			res.sendStatus(401)
 			return

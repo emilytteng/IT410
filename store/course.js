@@ -13,6 +13,7 @@ export const mutations = {
 export const actions = {
     async getCourses ({ commit }) {
         const res = await this.$axios.get('/api/courses')
+
         try {
             if (res.status === 200) {
                 commit('setCourseList', res.data)
@@ -45,6 +46,7 @@ export const actions = {
     async deleteCourse ({dispatch}, {courseId}) {
         try {
             const res = await this.$axios.delete('/api/courses/' + courseId)
+            
             if (res.status === 204) {
                 dispatch('getCourses')
             }

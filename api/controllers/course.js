@@ -2,11 +2,12 @@ const courses = require('../database/course')
 
 module.exports = function(pool) {
     return {
-        async createCourse (req, res) { // POST /courses
-            console.log("createCourse reached")
+        // POST /courses
+        async createCourse (req, res) { 
+            // console.log("createCourse reached")
             const { courseName } = req.enforcer.body
             const courseId = await courses.createCourse(pool, req.user.id, courseName)
-            console.log("course created in db")
+            // console.log("course created in db")
 
             if (courseId) {
                 res.set('location', '/api/courses/' + courseId)
@@ -19,8 +20,9 @@ module.exports = function(pool) {
             }
         },
 
-        async modifyCourse (req, res) { // PUT /courses/{courseId}
-            console.log("modifyCourse reached")
+        // PUT /courses/{courseId}
+        async modifyCourse (req, res) { 
+            // console.log("modifyCourse reached")
             const data = req.enforcer.body
 			const { courseId} = req.enforcer.params
 			const client = await pool.connect()
@@ -28,7 +30,7 @@ module.exports = function(pool) {
             try {
                 await client.query('BEGIN')
                 let course = await courses.getCourseById(client, courseId)
-                console.log("course found in db")
+                // console.log("course found in db")
 
                 if (course === undefined) {
                     res.enforcer.status(404).send()
@@ -38,7 +40,7 @@ module.exports = function(pool) {
                 } 
                 else {
                     await courses.modifyCourse(client, courseId, data)
-                    console.log("course modified in db")
+                    // console.log("course modified in db")
 					res.enforcer.status(200).send()
                 }
                 await client.query('COMMIT')
@@ -52,15 +54,16 @@ module.exports = function(pool) {
 			}
         },
 
-        async deleteCourse (req, res) { // DELETE /courses/{courseId}
-            console.log("deleteCourse reached")
+        // DELETE /courses/{courseId}
+        async deleteCourse (req, res) { 
+            // console.log("deleteCourse reached")
             const { courseId } = req.enforcer.params
 			const client = await pool.connect()
 
             try {
                 await client.query('BEGIN')
 				let course = await courses.getCourseById(client, courseId)
-				console.log("course found in db")
+				// console.log("course found in db")
 
                 if (course === undefined) {
 					res.enforcer.status(204).send()
@@ -70,7 +73,7 @@ module.exports = function(pool) {
 				}
                 else {
 					await courses.deleteCourse(pool, courseId)
-					console.log("course deleted from db")
+					// console.log("course deleted from db")
 					res.enforcer.status(204).send()
 				}
 				await client.query('COMMIT')
@@ -84,14 +87,15 @@ module.exports = function(pool) {
 			}
         },
 
-        async getCourseList (req, res) { // GET /courses
-            console.log("getCourseList reached")
+        // GET /courses
+        async getCourseList (req, res) { 
+            // console.log("getCourseList reached")
             const courseList = await courses.getCourseList(pool, req.user.id)
             if (courseList) {
                 res.enforcer.status(200).send(courseList)
             }
             else {
-                console.log("no courses")
+                // console.log("no courses")
                 res.enforcer.status(400)
             }
         }

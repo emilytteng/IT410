@@ -3,13 +3,13 @@ const courses = require('../database/course')
 
 module.exports = function(pool) {
     return {
-        async createAssignment (req, res) { // POST /courses/{courseId}
-            console.log("createAssignment reached")
+        // POST /courses/{courseId}
+        async createAssignment (req, res) { 
+            // console.log("createAssignment reached")
             const { asgmtName, dueDate} = req.enforcer.body
-            console.log("DueDate: " + dueDate)
             const { courseId} = req.enforcer.params
             const asgmtId = await assignments.createAssignment(pool, courseId, asgmtName, dueDate)
-            console.log("assignment created in db")
+            // console.log("assignment created in db")
 
             if (asgmtId) {
                 res
@@ -22,8 +22,9 @@ module.exports = function(pool) {
             }
         },
 
-        async modifyAssignment (req, res) { // PUT /courses/{courseId}/{asgmtId}
-            console.log("modifyAssignment reached")
+        // PUT /courses/{courseId}/{asgmtId}
+        async modifyAssignment (req, res) { 
+            // console.log("modifyAssignment reached")
             const data = req.enforcer.body
 			const { courseId, asgmtId} = req.enforcer.params
 			const client = await pool.connect()
@@ -32,7 +33,7 @@ module.exports = function(pool) {
                 await client.query('BEGIN')
                 let course = await courses.getCourseById(client, courseId)
                 let assignment = await assignments.getAssignmentById(client, asgmtId)
-                console.log("assignment found in db")
+                // console.log("assignment found in db")
 
                 if (assignment === undefined) {
                     res.enforcer.status(404).send()
@@ -42,7 +43,7 @@ module.exports = function(pool) {
                 } 
                 else {
                     await assignments.modifyAssignment(client, asgmtId, data)
-                    console.log("assignment modified in db")
+                    // console.log("assignment modified in db")
 					res.enforcer.status(200).send()
                 }
                 await client.query('COMMIT')
@@ -56,8 +57,9 @@ module.exports = function(pool) {
 			}
         },
 
-        async deleteAssignment (req, res) { // DELETE /courses/{courseId}/{asgmtId}
-            console.log("deleteAssignment reached")
+        // DELETE /courses/{courseId}/{asgmtId}
+        async deleteAssignment (req, res) { 
+            // console.log("deleteAssignment reached")
             const { courseId, asgmtId } = req.enforcer.params
 			const client = await pool.connect()
 
@@ -65,7 +67,7 @@ module.exports = function(pool) {
                 await client.query('BEGIN')
                 let course = await courses.getCourseById(client, courseId)
                 let assignment = await assignments.getAssignmentById(client, asgmtId)
-                console.log("assignment found in db")
+                // console.log("assignment found in db")
 
                 if (assignment === undefined) {
 					res.enforcer.status(204).send()
@@ -75,7 +77,7 @@ module.exports = function(pool) {
 				}
                 else {
 					await assignments.deleteAssignment(pool, asgmtId)
-					console.log("assignment deleted from db")
+					// console.log("assignment deleted from db")
 					res.enforcer.status(204).send()
 				}
 				await client.query('COMMIT')
@@ -89,15 +91,16 @@ module.exports = function(pool) {
 			}
         },
 
-        async getCourseAssignments (req, res) { // GET /courses/{courseId}
-            console.log("getCourseAssignments reached")
+        // GET /courses/{courseId}
+        async getCourseAssignments (req, res) { 
+            // console.log("getCourseAssignments reached")
             const { courseId } = req.enforcer.params
             const assignmentList = await assignments.getCourseAssignments(pool, courseId)
             if (assignmentList) {
                 res.enforcer.status(200).send(assignmentList)
             }
             else {
-                console.log("no assignments")
+                // console.log("no assignments")
                 res.enforcer.status(400)
             }
         }

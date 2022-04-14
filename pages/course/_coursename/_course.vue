@@ -68,7 +68,6 @@
                 </v-form>
             </v-row>
         </v-container>
-
     </div>
 </template>
 

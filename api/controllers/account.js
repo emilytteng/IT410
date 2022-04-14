@@ -3,10 +3,10 @@ const accounts = require('../database/account')
 module.exports = function(pool) {
     return {
         async createAccount (req, res) {
-			console.log("createAccount reached")
+			// console.log("createAccount reached")
             const { username, password} = req.enforcer.body
             const userId = await accounts.createAccount(pool, username, password)
-			console.log("account created in db")
+			// console.log("account created in db")
 
             if (userId) {
                 res.set('location', '/api/accounts/' + userId)
@@ -20,7 +20,7 @@ module.exports = function(pool) {
         },
         
         async modifyAccount (req, res) {
-			console.log("modifyAccount reached")
+			// console.log("modifyAccount reached")
             const data = req.enforcer.body
 			const { username } = req.enforcer.params
 			const client = await pool.connect()
@@ -28,7 +28,7 @@ module.exports = function(pool) {
 			try {
 				await client.query('BEGIN')
 				let account = await accounts.getAccountByUsername(client, username)
-				console.log("account found in db")
+				// console.log("account found in db")
 
 				if (account === undefined) {
 					res.enforcer.status(404).send()
@@ -38,7 +38,7 @@ module.exports = function(pool) {
                 } 
                 else {
 					await accounts.modifyAccount(client, username, data)
-					console.log("account modified in db")
+					// console.log("account modified in db")
 					res.enforcer.status(200).send()
 				}
 				await client.query('COMMIT')
@@ -53,14 +53,14 @@ module.exports = function(pool) {
         },
         
         async deleteAccount (req, res) {
-			console.log("deleteAccount reached")
+			// console.log("deleteAccount reached")
             const { username } = req.enforcer.params
 			const client = await pool.connect()
 
 			try {
 				await client.query('BEGIN')
 				let account = await accounts.getAccountByUsername(client, username)
-				console.log("account found in db")
+				// console.log("account found in db")
 
 				if (account === undefined) {
 					res.enforcer.status(204).send()
@@ -70,7 +70,7 @@ module.exports = function(pool) {
 				}
                 else {
 					await accounts.deleteAccount(pool, username)
-					console.log("account deleted from db")
+					// console.log("account deleted from db")
 					res.enforcer.status(204).send()
 				}
 				await client.query('COMMIT')
@@ -84,12 +84,8 @@ module.exports = function(pool) {
 			}
         },
 
-        async login (req, res) {
+        async login (req, res) {},
 
-        },
-
-        async logout (req, res) {
-            
-        }
+        async logout (req, res) {}
     }
 }
