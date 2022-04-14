@@ -37,8 +37,7 @@ CREATE TABLE "assignments" (
     "asgmtid" varchar(50) NOT NULL,
     "courseid" varchar(50) NOT NULL,
     "asgmtname" varchar(50) NOT NULL,
-    "duedate" timestamptz NOT NULL,
-    "asgmttype" varchar(50) NOT NULL,
+    "duedate" date NOT NULL,
     "completed" boolean NOT NULL,
     PRIMARY KEY ("asgmtid"),
     FOREIGN KEY ("courseid") REFERENCES "courses" ("courseid") ON DELETE CASCADE

@@ -329,19 +329,15 @@ components:
             required:
               - asgmtName
               - dueDate
-              - asgmtType
             properties:
               asgmtName:
                 type: string
               dueDate:
                 type: string
-                format: date-time
-              asgmtType:
-                type: string
+                format: date
             example:
               asgmtName: Ch 1 Quiz
-              dueDate: 2022-02-15T20:32:26.574Z
-              asgmtType: quiz
+              dueDate: 2021-01-30
     ModifyCourse:
       required: true
       content:
@@ -404,8 +400,6 @@ components:
           type: string
         duedate:
           type: string
-          format: date-time
-        asgmttype:
-          type: string
+          format: date
         completed:
           type: boolean

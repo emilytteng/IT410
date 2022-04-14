@@ -1,17 +1,16 @@
 const uuid = require('uuid').v4
 
-exports.createAssignment = async function (client, courseId, asgmtName, dueDate, asgmtType) {
+exports.createAssignment = async function (client, courseId, asgmtName, dueDate) {
     const asgmtId = uuid();
     const completed = false;
     const { rowCount } = await client.query({
         name: 'create-assignment',
-        text: 'INSERT INTO assignments (asgmtid, courseid, asgmtname, duedate, asgmttype, completed) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT DO NOTHING',
+        text: 'INSERT INTO assignments (asgmtid, courseid, asgmtname, duedate, completed) VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING',
         values: [
             asgmtId,
             courseId,
             asgmtName,
             dueDate,
-            asgmtType,
             completed
         ]
     })
