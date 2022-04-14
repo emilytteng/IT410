@@ -8,6 +8,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn @click="logout()" v-if="user != null">Log Out</v-btn>
+      <v-btn @click="register()" v-if="user == null">Register</v-btn>
     </v-app-bar>
 
     <v-main>
@@ -38,6 +39,11 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('account/logout')
+      this.$router.push('/')
+    },
+    
+    register () {
+      this.$router.push('/register')
     }
   },
   computed: {

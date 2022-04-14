@@ -1,0 +1,46 @@
+<template>
+  <div>
+    <h1>Register</h1>
+
+    <v-form v-model="valid">
+      <v-text-field v-model="usernameInput" :rules="usernameRules" label="Username..." required></v-text-field>
+      <v-text-field v-model="passwordInput" :rules="passwordRules" label="Password..." type="password" required></v-text-field>
+      <v-btn @click="register()">Register</v-btn>
+    </v-form>
+
+  </div>
+</template>
+
+<script>
+export default  {
+    name: 'RegisterPage',
+
+    data: () => ({
+        valid: false,
+        usernameInput: '',
+        passwordInput: '',
+        usernameRules: [
+        v => !!v || 'Username is required'
+        ],
+        passwordRules: [
+        v => !!v || 'Password is required'
+        ]
+    }),
+
+    methods: {
+        async register () {
+        await this.$store.dispatch('account/createAccount', {
+            username: this.usernameInput,
+            password: this.passwordInput
+        })
+        this.$router.push('/home')
+        }
+    },
+
+    computed: {
+      user () {
+        return this.$store.state.account.user
+    }
+  }
+}
+</script>

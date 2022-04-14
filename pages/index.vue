@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Authentication</h1>
+    <h1>Log In</h1>
 
     <v-form v-model="valid">
       <v-text-field v-model="usernameInput" :rules="usernameRules" label="Username..." required></v-text-field>

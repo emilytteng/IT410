@@ -11,6 +11,19 @@ export const mutations = {
 }
 
 export const actions = {
+    async createAccount({dispatch}, {username, password}) {
+        const res = await this.$axios.post('/api/accounts', {
+            username,
+            password
+        })
+        if (res.status === 201) {
+            dispatch('login', {
+                username: username,
+                password: password
+            })
+        }
+    },
+
     async login ({ commit }, { username, password }) {
         const res = await this.$axios.put('/api/authentication/login', {
             username,

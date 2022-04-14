@@ -62,9 +62,6 @@
         },
 
         computed: {
-            user () {
-                return this.$store.state.account.user
-            },
             courses () {
                 return this.$store.state.course.courseList
             }

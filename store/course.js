@@ -40,8 +40,7 @@ export const actions = {
                 alert("Course creation error")
             }
         }
-    }
-    ,
+    },
 
     async deleteCourse ({dispatch}, {courseId}) {
         try {
