@@ -11,15 +11,16 @@ These attributes allow for accessing assignments for a specific class, sorting a
 ## Events
 
 - user account created
+- user account modified (password)
 - user account deleted
 - user logged in
 - user logged out
 - course created
+- course modified (course name)
 - course deleted
 - assignment created
-- assignment modified
+- assignment modified (completed)
 - assignment deleted
-- assignment completed
 
 ## Commands
 
@@ -36,10 +37,7 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - modifyAssignment
 - markAssignmentComplete
 - markAssignmentIncomplete
-- viewAllAssignmentsByDate
 - viewCourseAssignments
-- viewCompleteAndIncompleteCourseAssignments
-- sortCourseAssignmentsByType
 
 ## Entities
 
@@ -58,7 +56,6 @@ These attributes allow for accessing assignments for a specific class, sorting a
 - course id
 - name
 - due date
-- assignment type
 - completed (`true` or `false`)
 
 # REST API Design
@@ -80,7 +77,6 @@ These attributes allow for accessing assignments for a specific class, sorting a
 | delete course           | `/courses/{courseId}`          | DELETE      | `courseId`            |                        |
 | modify assignment       | `courses/{courseId}/{asgmtId}` | PUT         | `courseId`, `asgmtId` | Modify Assignment      | 
 | delete assignment       | `courses/{courseId}/{asgmtId}` | DELETE      | `courseId`, `asgmtId` |                        |
-| view all assignments    | `/assignments`                 | GET         |                       |                        |
 
 ## Representations
 
@@ -101,7 +97,6 @@ Request
 
 ```json
 {
-    "userId": "1",
     "password": "pswdNew"
 }
 ```
@@ -158,7 +153,6 @@ Response
        "asgmtId": "4",
         "asgmtName": "DDD",
         "dueDate": "1-19-2022",
-        "type": "Reading",
         "completed": true
     },
     {
@@ -166,7 +160,6 @@ Response
         "asgmtId": "5",
         "asgmtName": "RestAPI",
         "dueDate": "1-19-2022",
-        "type": "Quiz",
         "completed": false
     },
     {
@@ -174,7 +167,6 @@ Response
         "asgmtId": "6",
         "asgmtName": "OpenAPI Doc",
         "dueDate": "1-19-2022",
-        "type": "Homework",
         "completed": false
     }
 ]
@@ -188,7 +180,6 @@ Request
 {
     "asgmtName": "Ch 1 Quiz",
     "dueDate": "1-21-2022",
-    "type": "Quiz"
 }
 ```
 
@@ -198,7 +189,6 @@ Request
 
 ```json
 {
-    "courseId": "5",
     "courseName": "IT&C 410"
 }
 ```
@@ -209,7 +199,6 @@ Request
 
 ```json
 {
-    "asgmtId": "4",
     "completed": true
 }
 ```
@@ -225,7 +214,6 @@ Response
         "asgmtId": "1",
         "asgmtName": "Ch 1 Reading",
         "dueDate": "1-17-2022",
-        "type": "Reading",
         "completed": false
     },
     {
@@ -233,7 +221,6 @@ Response
         "asgmtId": "2",
         "asgmtName": "Ch 1 Reflection",
         "dueDate": "1-19-2022",
-        "type": "Homework",
         "completed": false
     },
     {
@@ -241,7 +228,6 @@ Response
         "asgmtId": "3",
         "asgmtName": "Ch 1 Quiz",
         "dueDate": "1-21-2022",
-        "type": "Quiz",
         "completed": false
     }
 ]
